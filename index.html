@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Decision Intelligence Engine</title>
+  <meta name="description" content="AI-Powered Decision Simulation — Map every possible future before you live it." />
+  <link rel="icon" type="image/png" href="die_icon.png" />
+  <link rel="apple-touch-icon" href="die_icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anta&family=Orbitron:wght@400;600;700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="login.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════ CANVAS BG ═══ -->
+  <canvas id="starfield"></canvas>
+
+  <!-- ═══════════════════════════════════════════ NAVBAR ═══════ -->
+  <nav id="navbar" aria-label="Main navigation">
+    <!-- Navbar particle layer -->
+    <div class="nav-particles" aria-hidden="true">
+      <span class="nav-particle"></span><span class="nav-particle"></span>
+      <span class="nav-particle"></span><span class="nav-particle"></span>
+      <span class="nav-particle"></span><span class="nav-particle"></span>
+    </div>
+
+    <div class="nav-container">
+      <!-- Logo -->
+      <a href="#home" class="nav-logo" aria-label="Decision Intelligence Engine — Home">
+        <div class="nav-logo-img-wrap">
+          <img src="bg die.png" alt="Decision Intelligence Engine Logo" class="nav-logo-img" />
+        </div>
+        <div class="nav-logo-text">
+          <span class="nav-brand-top">Decision</span>
+          <span class="nav-brand-bottom">Intelligence Engine</span>
+        </div>
+      </a>
+
+      <!-- Desktop Links -->
+      <ul class="nav-links" id="navLinks" role="menubar">
+        <li role="none"><a href="#home"         class="nav-link" role="menuitem" data-label="Home">Home</a></li>
+        <li role="none"><a href="#simulator"    class="nav-link" role="menuitem" data-label="Simulator">Simulator</a></li>
+        <li role="none"><a href="#life-tracker" class="nav-link" role="menuitem" data-label="Life Tracker">Life Tracker</a></li>
+        <li role="none"><a href="#galaxy-map"   class="nav-link" role="menuitem" data-label="Galaxy Map">Galaxy Map</a></li>
+        <li role="none"><a href="#features"     class="nav-link" role="menuitem" data-label="Features">Features</a></li>
+        <li role="none"><a href="#about"        class="nav-link" role="menuitem" data-label="About">About</a></li>
+        <li role="none"><a href="#contact"      class="nav-link" role="menuitem" data-label="Contact">Contact</a></li>
+        <!-- <li role="none"><a href="#history"      class="nav-link" role="menuitem" data-label="History">History</a></li>
+        <li role="none"><a href="#battle"       class="nav-link" role="menuitem" data-label="Battle">Battle</a></li> -->
+        <li role="none">
+          <a   class="nav-link "  id="guideNavBtn" role="menuitem" aria-label="How to Use">Guide</a>
+          <!-- <button class="nav-link nav-guide-btn" id="guideNavBtn" aria-label="How to Use">
+            ❓ Guide
+          </button> -->
+        </li>
+        <li role="none">
+          <a href="login.html" class="nav-link nav-login-btn" role="menuitem" aria-label="Login">
+            <span class="nav-login-icon">◈</span> Login
+          </a>
+        </li>
+      </ul>
+
+      <!-- Hamburger -->
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks">
+        <span class="ham-line ham-top"></span>
+        <span class="ham-line ham-mid"></span>
+        <span class="ham-line ham-bot"></span>
+      </button>
+    </div>
+
+    <!-- Mobile menu overlay -->
+    <div class="nav-mobile-overlay" id="navMobileOverlay" aria-hidden="true">
+      <ul class="nav-mobile-links" role="menu">
+        <li><a href="#home"         class="nav-mobile-link" role="menuitem">Home</a></li>
+        <li><a href="#simulator"    class="nav-mobile-link" role="menuitem">Simulator</a></li>
+        <li><a href="#life-tracker" class="nav-mobile-link" role="menuitem">Life Tracker</a></li>
+        <li><a href="#galaxy-map"   class="nav-mobile-link" role="menuitem">Galaxy Map</a></li>
+        <li><a href="#features"     class="nav-mobile-link" role="menuitem">Features</a></li>
+        <li><a href="#about"        class="nav-mobile-link" role="menuitem">About</a></li>
+        <li><a href="#contact"      class="nav-mobile-link" role="menuitem">Contact</a></li>
+         <li><a class="nav-mobile-link" id="guideMobileBtn" role="menuitem">Guide</a></li>
+        <!-- <li><button class="nav-mobile-link" id="guideMobileBtn" type="button" role="menuitem">❓ Guide</button></li> -->
+        <li><a href="login.html"    class="nav-mobile-link nav-mobile-login" role="menuitem">◈ Login</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════ HERO ══════════ -->
+  <section id="home" class="hero">
+    <div class="hero-orb orb-1"></div>
+    <div class="hero-orb orb-2"></div>
+    <div class="hero-orb orb-3"></div>
+    <div class="hero-content">
+      <!-- <p class="hero-eyebrow">AI-Powered Decision Engine</p> -->
+      <h1 class="hero-heading">
+        Explore Your<br/>
+        <span class="gradient-text">Decisions</span><br/>
+        in the Universe
+      </h1>
+      <p class="hero-sub">Every choice ripples across time. Simulate your future before you live it — powered by advanced AI that maps the infinite paths of possibility.</p>
+      <div class="hero-cta">
+        <a href="#simulator" class="btn btn-primary">
+          <span class="btn-text">Start Simulation</span>
+          <span class="btn-glow"></span>
+        </a>
+        <a href="#how-it-works" class="btn btn-ghost">How It Works</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">∞</span><span class="stat-label">Possible Futures</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">2.4M</span><span class="stat-label">Simulations Run</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">98%</span><span class="stat-label">Accuracy Rate</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="orbit-ring ring-1"></div>
+      <div class="orbit-ring ring-2"></div>
+      <div class="orbit-ring ring-3"></div>
+      <div class="planet-core"></div>
+      <div class="orbit-dot dot-1"></div>
+      <div class="orbit-dot dot-2"></div>
+      <div class="orbit-dot dot-3"></div>
+    </div>
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ SIMULATOR ═════ -->
+  <section id="simulator" class="simulator-section">
+    <div class="section-label">CORE ENGINE</div>
+    <h2 class="section-title">Decision <span class="gradient-text">Simulator</span></h2>
+    <p class="section-sub">Type any life decision. Our AI maps every possible outcome across parallel timelines.</p>
+
+    <div class="sim-container">
+      <div class="sim-box glass-card">
+        <div class="sim-header">
+          <div class="sim-dots">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+          </div>
+          <span class="sim-title-bar">decision_input.ai</span>
+        </div>
+        <div class="sim-body">
+          <textarea id="decisionInput" class="decision-input" placeholder="e.g. Should I quit my job to start a business?&#10;e.g. Should I move to another city?&#10;e.g. Should I pursue this relationship?"></textarea>
+
+          <!-- Compare Mode panel — hidden by default -->
+          <div class="compare-mode-panel" id="compareModePanel" style="display:none">
+            <div class="cmp-header">
+              <span class="cmp-label">⚔ Compare Mode</span>
+              <button class="cmp-exit" id="compareExitBtn">✕ Exit Compare</button>
+            </div>
+            <div class="cmp-inputs">
+              <div class="cmp-input-wrap">
+                <span class="cmp-tag cmp-tag-a">A</span>
+                <textarea id="cmpInputA" class="decision-input cmp-input" placeholder="Decision A — e.g. Start a business…" rows="3"></textarea>
+              </div>
+              <div class="cmp-vs">VS</div>
+              <div class="cmp-input-wrap">
+                <span class="cmp-tag cmp-tag-b">B</span>
+                <textarea id="cmpInputB" class="decision-input cmp-input" placeholder="Decision B — e.g. Get a job…" rows="3"></textarea>
+              </div>
+            </div>
+            <div class="cmp-footer">
+              <button class="btn btn-primary" id="runCompareBtn">⚔ Run Comparison</button>
+            </div>
+          </div>
+          <div class="sim-footer">
+            <div class="char-count"><span id="charCount">0</span> / 300</div>
+            <div class="sim-btn-group">
+              <button class="btn btn-primary sim-btn" id="simulateBtn">
+                <span class="btn-icon">◈</span>
+                <span>Simulate Future</span>
+              </button>
+              <button class="btn btn-ghost sim-btn-sm" id="compareBtn">⚔ Compare</button>
+              <button class="btn btn-ghost sim-btn-sm" id="historyPanelBtn">📜 History</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loading State -->
+      <div class="sim-loading" id="simLoading">
+        <div class="loading-ring">
+          <div class="loading-inner"></div>
+        </div>
+        <p class="loading-text">Simulating<span class="loading-dots"><span>.</span><span>.</span><span>.</span></span></p>
+        <p class="loading-sub">Mapping parallel timelines across the decision matrix</p>
+        <div class="loading-progress">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+      </div>
+
+      <!-- Output Card -->
+      <div class="sim-output glass-card" id="simOutput">
+        <div class="output-header">
+          <span class="output-badge">◈ Simulation Complete</span>
+          <div class="output-meta">
+            <span class="meta-item">Confidence: <strong id="confidence">—</strong></span>
+            <span class="meta-item">Paths: <strong id="pathsCount">—</strong></span>
+          </div>
+        </div>
+        <div class="output-body">
+          <h3 class="output-label">Your Decision:</h3>
+          <p class="output-decision" id="outputDecision">—</p>
+
+          <!-- ══ DECISION CONTEXT ═══════════════════════════════════ -->
+          <div class="ext-section" id="extDecisionContext">
+            <div class="ext-section-header">
+              <span class="ext-section-icon">🧠</span>
+              <h3 class="ext-section-title">Decision Context</h3>
+              <span class="ext-section-badge">AI Understanding</span>
+            </div>
+            <div class="ctx-grid">
+              <div class="ctx-item">
+                <span class="ctx-item-label">Decision Type</span>
+                <span class="ctx-item-value" id="ctxDecisionType">—</span>
+              </div>
+              <div class="ctx-item">
+                <span class="ctx-item-label">Primary Goal</span>
+                <span class="ctx-item-value" id="ctxPrimaryGoal">—</span>
+              </div>
+              <div class="ctx-item">
+                <span class="ctx-item-label">Analysis Focus</span>
+                <span class="ctx-item-value" id="ctxAnalysisFocus">—</span>
+              </div>
+            </div>
+            <div class="ctx-factors">
+              <span class="ctx-factors-label">Factors Used</span>
+              <div class="ctx-factors-list" id="ctxFactorsList"></div>
+            </div>
+          </div>
+
+          <!-- ══ CONTEXT INTELLIGENCE ═══════════════════════════════ -->
+          <div class="ext-section" id="extContextIntelligence">
+            <div class="ext-section-header">
+              <span class="ext-section-icon">🌍</span>
+              <h3 class="ext-section-title">Context Intelligence</h3>
+              <span class="ext-section-badge" id="ctxIntelBadge">General Insight</span>
+            </div>
+            <div class="ctx-highlights" id="ctxHighlights"></div>
+            <div class="ctx-recommend">
+              <div class="ctx-recommend-title" id="ctxRecommendTitle">Recommendations</div>
+              <div class="ctx-recommend-list" id="ctxRecommendList"></div>
+            </div>
+          </div>
+
+          <h3 class="output-label">Simulated Outcome:</h3>
+          <div class="output-result" id="outputResult">—</div>
+          <div class="output-paths">
+            <div class="path-card path-positive">
+              <span class="path-icon">↑</span>
+              <span class="path-label">Best Path</span>
+              <div class="path-meta">
+                <span class="path-meta-prob" id="pathBestProb">—</span>
+                <span class="path-meta-timeline" id="pathBestTimeline">—</span>
+              </div>
+              <p class="path-text" id="pathBest">—</p>
+              <button class="path-explore-btn" type="button" data-target="pathBestDetails" aria-expanded="false">
+                <span class="pet-arrow">▼</span><span class="pet-label">Explore More</span>
+              </button>
+              <div class="path-details" id="pathBestDetails">
+                <div class="ext-cards" id="extSuccessVariations"></div>
+              </div>
+            </div>
+            <div class="path-card path-neutral">
+              <span class="path-icon">→</span>
+              <span class="path-label">Most Likely</span>
+              <div class="path-meta">
+                <span class="path-meta-prob" id="pathLikelyProb">—</span>
+                <span class="path-meta-timeline" id="pathLikelyTimeline">—</span>
+              </div>
+              <p class="path-text" id="pathLikely">—</p>
+              <button class="path-explore-btn" type="button" data-target="pathLikelyDetails" aria-expanded="false">
+                <span class="pet-arrow">▼</span><span class="pet-label">Explore More</span>
+              </button>
+              <div class="path-details" id="pathLikelyDetails">
+                <div class="ext-cards" id="extLikelyVariations"></div>
+              </div>
+            </div>
+            <div class="path-card path-negative">
+              <span class="path-icon">↓</span>
+              <span class="path-label">Risk Path</span>
+              <div class="path-meta">
+                <span class="path-meta-prob" id="pathRiskProb">—</span>
+                <span class="path-meta-timeline" id="pathRiskTimeline">—</span>
+              </div>
+              <p class="path-text" id="pathRisk">—</p>
+              <button class="path-explore-btn" type="button" data-target="pathRiskDetails" aria-expanded="false">
+                <span class="pet-arrow">▼</span><span class="pet-label">Explore More</span>
+              </button>
+              <div class="path-details" id="pathRiskDetails">
+                <div class="ext-cards" id="extRiskVariations"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="output-actions">
+          <button class="btn btn-ghost btn-sm" id="resetBtn">← New Simulation</button>
+          <button class="btn btn-primary btn-sm" id="saveBtn">Save Result</button>
+        </div>
+
+        <!-- ══ AI ANALYSIS ════════════════════════════════════════ -->
+        <div class="ext-section" id="extAiAnalysis">
+          <div class="ext-section-header">
+            <span class="ext-section-icon">🧠</span>
+            <h3 class="ext-section-title">AI Analysis</h3>
+            <span class="ext-section-badge">Why This Happened</span>
+          </div>
+          <div class="ai-analysis-grid" id="aiAnalysisGrid"></div>
+        </div>
+
+        <!-- ══ FUTURE TIMELINE ════════════════════════════════════ -->
+        <div class="ext-section" id="extTimeline">
+          <div class="ext-section-header">
+            <span class="ext-section-icon">📅</span>
+            <h3 class="ext-section-title">Future Timeline</h3>
+            <span class="ext-section-badge">Journey Forecast</span>
+          </div>
+          <div class="timeline-track" id="timelineTrack"></div>
+        </div>
+
+        <!-- ══ EMOTIONAL FORECAST ═════════════════════════════════ -->
+        <div class="ext-section" id="extEmotional">
+          <div class="ext-section-header">
+            <span class="ext-section-icon">❤️</span>
+            <h3 class="ext-section-title">Emotional Forecast</h3>
+            <span class="ext-section-badge">Inner Journey</span>
+          </div>
+          <div class="emotion-grid" id="emotionGrid"></div>
+        </div>
+
+        <!-- ══ RECOMMENDED MISSIONS ═══════════════════════════════ -->
+        <div class="ext-section" id="extMissions">
+          <div class="ext-section-header">
+            <span class="ext-section-icon">🎯</span>
+            <h3 class="ext-section-title">Recommended Missions</h3>
+            <span class="ext-section-badge">Action Plan</span>
+          </div>
+          <div class="missions-wrap" id="missionsWrap"></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ LIFE TRACKER v3 ══ -->
+  <section id="life-tracker" class="life-tracker-section">
+    <div class="section-label">LIFE OS v3.0</div>
+    <h2 class="section-title">Life <span class="gradient-text">Simulator</span> Dashboard</h2>
+    <p class="section-sub">Your real-time behavioral analysis engine. Every habit shapes your scores, XP, predictions, and future.</p>
+
+    <!-- XP / Level Bar -->
+    <div class="xp-bar-wrap glass-card">
+      <div class="xp-left">
+        <div class="xp-level-badge" id="levelBadge">LVL 7</div>
+        <div class="xp-info">
+          <span class="xp-title">Life Operator</span>
+          <div class="xp-track">
+            <div class="xp-fill" id="xpFill" style="width:60%"></div>
+          </div>
+          <span class="xp-label"><span id="xpCurrent">600</span> / <span id="xpNext">1000</span> XP</span>
+        </div>
+      </div>
+      <div class="xp-right">
+        <div class="streak-box">
+          <span class="streak-fire">🔥</span>
+          <span class="streak-count" id="streakCount">5</span>
+          <span class="streak-label">Day Streak</span>
+        </div>
+        <div class="achievement-tray" id="achievementTray"></div>
+      </div>
+    </div>
+
+    <!-- Mood Environment Indicator -->
+    <div class="mood-indicator glass-card" id="moodIndicator">
+      <span class="mood-ind-icon" id="moodIndicatorIcon">⚖️</span>
+      <div class="mood-ind-info">
+        <span class="mood-ind-title">COSMIC MOOD</span>
+        <div class="mood-ind-bar-wrap">
+          <div class="mood-ind-bar" id="moodIndicatorBar"></div>
+        </div>
+        <span class="mood-ind-label" id="moodIndicatorLabel">Balanced</span>
+      </div>
+      <div class="mood-ind-desc" id="moodIndDesc">Adjust habits to change your cosmic mood state</div>
+    </div>
+
+    <!-- Scenario Mode Selector -->
+    <div class="mode-selector">
+      <button class="mode-btn active" data-mode="balanced">⚖️ Balanced</button>
+      <button class="mode-btn" data-mode="exam">📖 Exam Mode</button>
+      <button class="mode-btn" data-mode="lazy">😴 Lazy Day</button>
+      <button class="mode-btn" data-mode="productive">🚀 Productivity</button>
+      <button class="mode-btn" data-mode="career">💼 Career</button>
+      <button class="mode-btn" data-mode="recovery">🧘 Recovery</button>
+    </div>
+
+    <div class="lt-grid">
+
+      <!-- LEFT: Habit Sliders -->
+      <div class="lt-sliders glass-card">
+        <div class="lt-card-header">
+          <span class="lt-card-icon">🎛️</span>
+          <h3>Daily Habits</h3>
+          <button class="btn btn-ghost btn-sm" id="saveHabitsBtn">💾 Save</button>
+          <button class="btn btn-ghost btn-sm" id="journeyPanelBtn">🌌 Journey</button>
+        </div>
+        <div class="habit-slider-group">
+
+          <div class="habit-row">
+            <span class="habit-emoji">😴</span>
+            <div class="habit-info">
+              <span class="habit-name">Sleep</span>
+              <span class="habit-val" id="val-sleep">7h</span>
+            </div>
+            <input type="range" class="habit-slider" id="slider-sleep" min="0" max="10" value="7" data-habit="sleep" />
+          </div>
+
+          <div class="habit-row">
+            <span class="habit-emoji">📚</span>
+            <div class="habit-info">
+              <span class="habit-name">Study</span>
+              <span class="habit-val" id="val-study">5h</span>
+            </div>
+            <input type="range" class="habit-slider" id="slider-study" min="0" max="10" value="5" data-habit="study" />
+          </div>
+
+          <div class="habit-row">
+            <span class="habit-emoji">📱</span>
+            <div class="habit-info">
+              <span class="habit-name">Screen Time</span>
+              <span class="habit-val" id="val-screen">3h</span>
+            </div>
+            <input type="range" class="habit-slider" id="slider-screen" min="0" max="10" value="3" data-habit="screen" />
+          </div>
+
+          <div class="habit-row">
+            <span class="habit-emoji">🏃</span>
+            <div class="habit-info">
+              <span class="habit-name">Exercise</span>
+              <span class="habit-val" id="val-exercise">4h</span>
+            </div>
+            <input type="range" class="habit-slider" id="slider-exercise" min="0" max="10" value="4" data-habit="exercise" />
+          </div>
+
+          <div class="habit-row">
+            <span class="habit-emoji">🎯</span>
+            <div class="habit-info">
+              <span class="habit-name">Productivity</span>
+              <span class="habit-val" id="val-productivity">6h</span>
+            </div>
+            <input type="range" class="habit-slider" id="slider-productivity" min="0" max="10" value="6" data-habit="productivity" />
+          </div>
+
+          <div class="habit-row">
+            <span class="habit-emoji">🧑‍🤝‍🧑</span>
+            <div class="habit-info">
+              <span class="habit-name">Social Life</span>
+              <span class="habit-val" id="val-social">4h</span>
+            </div>
+            <input type="range" class="habit-slider" id="slider-social" min="0" max="10" value="4" data-habit="social" />
+          </div>
+
+          <div class="habit-row">
+            <span class="habit-emoji">🧠</span>
+            <div class="habit-info">
+              <span class="habit-name">Mental Energy</span>
+              <span class="habit-val" id="val-mental">6h</span>
+            </div>
+            <input type="range" class="habit-slider" id="slider-mental" min="0" max="10" value="6" data-habit="mental" />
+          </div>
+
+        </div>
+        <div class="habit-tip" id="habitTip">💡 Adjust sliders to simulate your day</div>
+      </div>
+
+      <!-- CENTER: Score Dashboard -->
+      <div class="lt-scores">
+
+        <!-- Overall Life Score Ring -->
+        <div class="life-score-ring glass-card">
+          <div class="ring-wrap">
+            <svg class="score-ring-svg" viewBox="0 0 120 120">
+              <circle class="ring-bg" cx="60" cy="60" r="50" />
+              <circle class="ring-fill" id="lifeRingFill" cx="60" cy="60" r="50"
+                stroke-dasharray="314" stroke-dashoffset="100" />
+            </svg>
+            <div class="ring-center">
+              <span class="ring-score" id="overallScore">72</span>
+              <span class="ring-label">Life Score</span>
+            </div>
+          </div>
+          <div class="ring-tag" id="lifeScoreTag">Good Balance</div>
+        </div>
+
+        <!-- Score Cards -->
+        <div class="score-cards">
+          <div class="score-card glass-card">
+            <div class="score-card-top"><span class="score-icon">❤️</span><span class="score-name">Health</span></div>
+            <div class="score-bar-wrap"><div class="score-bar" id="bar-health"></div></div>
+            <span class="score-num" id="num-health">70</span>
+          </div>
+          <div class="score-card glass-card">
+            <div class="score-card-top"><span class="score-icon">🧠</span><span class="score-name">Focus</span></div>
+            <div class="score-bar-wrap"><div class="score-bar" id="bar-focus"></div></div>
+            <span class="score-num" id="num-focus">65</span>
+          </div>
+          <div class="score-card glass-card">
+            <div class="score-card-top"><span class="score-icon">⚡</span><span class="score-name">Productivity</span></div>
+            <div class="score-bar-wrap"><div class="score-bar" id="bar-productivity"></div></div>
+            <span class="score-num" id="num-productivity">68</span>
+          </div>
+          <div class="score-card glass-card">
+            <div class="score-card-top"><span class="score-icon">😊</span><span class="score-name">Happiness</span></div>
+            <div class="score-bar-wrap"><div class="score-bar" id="bar-wellbeing"></div></div>
+            <span class="score-num" id="num-wellbeing">74</span>
+          </div>
+          <div class="score-card glass-card">
+            <div class="score-card-top"><span class="score-icon">🔋</span><span class="score-name">Discipline</span></div>
+            <div class="score-bar-wrap"><div class="score-bar" id="bar-discipline"></div></div>
+            <span class="score-num" id="num-discipline">60</span>
+          </div>
+          <div class="score-card glass-card">
+            <div class="score-card-top"><span class="score-icon">🌊</span><span class="score-name">Mental</span></div>
+            <div class="score-bar-wrap"><div class="score-bar" id="bar-mental"></div></div>
+            <span class="score-num" id="num-mental">65</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Chart -->
+      <div class="lt-chart glass-card">
+        <div class="lt-card-header">
+          <span class="lt-card-icon">📈</span>
+          <h3>Analytics</h3>
+          <select class="chart-select" id="chartType">
+            <option value="radar">Radar</option>
+            <option value="bar">Bar</option>
+            <option value="line">History</option>
+          </select>
+        </div>
+        <div class="chart-wrap">
+          <canvas id="lifeChart"></canvas>
+        </div>
+        <div class="chart-legend">
+          <span class="legend-dot" style="background:#a855f7"></span>Health
+          <span class="legend-dot" style="background:#60a5fa"></span>Focus
+          <span class="legend-dot" style="background:#06b6d4"></span>Productivity
+          <span class="legend-dot" style="background:#34d399"></span>Happiness
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Probability / Prediction Row -->
+    <div class="prediction-row">
+      <div class="pred-card glass-card">
+        <div class="pred-icon">🎯</div>
+        <div class="pred-info">
+          <span class="pred-label">Success Probability</span>
+          <div class="pred-bar-wrap"><div class="pred-bar pred-green" id="pred-success"></div></div>
+          <span class="pred-val" id="pval-success">72%</span>
+        </div>
+      </div>
+      <div class="pred-card glass-card">
+        <div class="pred-icon">🔥</div>
+        <div class="pred-info">
+          <span class="pred-label">Burnout Risk</span>
+          <div class="pred-bar-wrap"><div class="pred-bar pred-red" id="pred-burnout"></div></div>
+          <span class="pred-val" id="pval-burnout">28%</span>
+        </div>
+      </div>
+      <div class="pred-card glass-card">
+        <div class="pred-icon">⚡</div>
+        <div class="pred-info">
+          <span class="pred-label">Productivity Forecast</span>
+          <div class="pred-bar-wrap"><div class="pred-bar pred-blue" id="pred-productivity"></div></div>
+          <span class="pred-val" id="pval-productivity">68%</span>
+        </div>
+      </div>
+      <div class="pred-card glass-card">
+        <div class="pred-icon">🧘</div>
+        <div class="pred-info">
+          <span class="pred-label">Energy Stability</span>
+          <div class="pred-bar-wrap"><div class="pred-bar pred-cyan" id="pred-energy"></div></div>
+          <span class="pred-val" id="pval-energy">65%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Decision Engine
+    <div class="decision-engine glass-card">
+      <div class="lt-card-header">
+        <span class="lt-card-icon">⚖️</span>
+        <h3>Decision Engine</h3>
+        <span class="de-badge">LIVE</span>
+      </div>
+      <div class="decision-choices">
+        <button class="decision-btn" data-decision="grind">🚀 Grind Session (+study +focus)</button>
+        <button class="decision-btn" data-decision="social_media">📱 Social Media Binge (−focus −sleep)</button>
+        <button class="decision-btn" data-decision="workout">🏋️ Full Workout (+exercise +mental)</button>
+        <button class="decision-btn" data-decision="allnighter">🌙 Pull All-Nighter (−sleep +study)</button>
+        <button class="decision-btn" data-decision="meditate">🧘 Meditate (+mental +focus)</button>
+        <button class="decision-btn" data-decision="junkfood">🍔 Junk Food Day (−health −mental)</button>
+      </div>
+      <div class="decision-log" id="decisionLog">
+        <p class="log-placeholder">← Make a decision to see its impact</p>
+      </div>
+    </div> -->
+
+    <!-- AI Insight Bar -->
+    <div class="ai-insight glass-card" id="aiInsight">
+      <span class="ai-insight-icon">🤖</span>
+      <p id="aiInsightText">Your current habit pattern suggests a balanced lifestyle. Increasing study time could boost productivity by 15%.</p>
+      <span class="ai-insight-badge">AI Insight</span>
+    </div>
+
+    <!-- Level Up Toast -->
+    <div class="levelup-toast" id="levelupToast">
+      <span class="levelup-icon">⬆️</span>
+      <div>
+        <strong id="levelupTitle">LEVEL UP!</strong>
+        <p id="levelupSub">You reached Level 8</p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════ GALAXY MAP ══════════ -->
+  <section id="galaxy-map" class="galaxy-section">
+
+    <!-- Nebula Background -->
+    <div class="nebula-bg">
+      <div class="nebula n1"></div>
+      <div class="nebula n2"></div>
+      <div class="nebula n3"></div>
+    </div>
+
+    <div class="section-label">COSMIC NAVIGATION</div>
+    <h2 class="section-title">Your <span class="gradient-text">Galaxy Map</span></h2>
+    <p class="section-sub">Each star is a decision. Each beam is a timeline. Navigate your destiny through space.</p>
+
+    <!-- Galaxy Canvas -->
+    <div class="galaxy-viewport">
+      <canvas id="galaxyCanvas"></canvas>
+
+      <!-- HUD Overlay -->
+      <div class="galaxy-hud">
+        <div class="hud-top">
+          <div class="hud-stat">
+            <span class="hud-label">UNIVERSE STABILITY</span>
+            <div class="hud-bar-wrap"><div class="hud-bar" id="stabilityBar"></div></div>
+            <span class="hud-val" id="stabilityVal">72%</span>
+          </div>
+          <div class="hud-center-title">
+            <span class="hud-coords" id="galaxyCoords">∞ MULTIVERSE ACTIVE</span>
+          </div>
+          <div class="hud-stat hud-stat-right">
+            <span class="hud-label">TIMELINE BRANCHES</span>
+            <span class="hud-val hud-val-lg" id="timelineBranches">7</span>
+          </div>
+        </div>
+        <div class="hud-controls">
+          <button class="hud-btn" id="zoomInBtn">⊕</button>
+          <button class="hud-btn" id="zoomOutBtn">⊖</button>
+          <button class="hud-btn" id="resetViewBtn">◎</button>
+          <button class="hud-btn" id="addStarBtn">✦ Add Decision Star</button>
+        </div>
+      </div>
+
+      <!-- Star Tooltip -->
+      <div class="star-tooltip" id="starTooltip">
+        <div class="tooltip-header">
+          <span class="tooltip-icon" id="ttIcon">⭐</span>
+          <strong id="ttName">Decision Node</strong>
+        </div>
+        <p id="ttDesc">Hover a star to see its cosmic impact</p>
+        <div class="tooltip-stats" id="ttStats"></div>
+      </div>
+
+      <!-- Decision Panel — slides in when star is clicked -->
+      <div class="galaxy-decision-panel hidden" id="galaxyDecisionPanel">
+        <button class="dp-close" id="dpCloseBtn">✕</button>
+        <div class="dp-star-header">
+          <span class="dp-star-icon" id="dpStarIcon">⭐</span>
+          <div>
+            <h3 class="dp-star-name" id="dpStarName">Node</h3>
+            <span class="dp-status" id="dpStatus">Average</span>
+          </div>
+        </div>
+        <p class="dp-desc" id="dpStarDesc">Description</p>
+        <div class="dp-habit-row">
+          <span class="dp-habit-name" id="dpHabitName">Level</span>
+          <span class="dp-habit-val" id="dpHabitVal">5/10</span>
+        </div>
+        <div class="dp-habit-bar-wrap">
+          <div class="dp-habit-fill" id="dpHabitFill"></div>
+        </div>
+        <p class="dp-tip" id="dpStarTip">💡 Tip</p>
+      </div>
+
+      <!-- Warp Overlay -->
+      <div class="warp-overlay" id="warpOverlay">
+        <div class="warp-lines"></div>
+        <p class="warp-text" id="warpText">WARPING TO NEW TIMELINE...</p>
+      </div>
+
+      <!-- Cosmic Event Alert -->
+      <div class="cosmic-event" id="cosmicEvent">
+        <span class="cosmic-event-icon" id="ceIcon">☄️</span>
+        <div>
+          <strong id="ceTitle">METEOR EVENT</strong>
+          <p id="ceDesc">A life disruption crosses your trajectory</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cosmic Analytics Dashboard -->
+    <div class="cosmic-analytics">
+      <div class="section-label" style="margin-top:3rem">MISSION REPORT</div>
+      <h3 class="analytics-title">Cosmic <span class="gradient-text">Analytics</span></h3>
+
+      <div class="analytics-grid">
+
+        <div class="analytics-card glass-card">
+          <div class="analytics-header">
+            <span>🌌</span><h4>Universe Stability Score</h4>
+          </div>
+          <div class="stability-ring-wrap">
+            <svg class="stability-svg" viewBox="0 0 100 100">
+              <circle class="ring-bg" cx="50" cy="50" r="40"/>
+              <circle class="stability-ring-fill" id="stabilityRingFill" cx="50" cy="50" r="40"
+                stroke-dasharray="251" stroke-dashoffset="80"/>
+            </svg>
+            <div class="stability-center">
+              <span id="stabilityScore">72</span>
+              <small>Stable</small>
+            </div>
+          </div>
+          <p class="analytics-insight" id="stabilityInsight">Your mental orbit is stabilizing</p>
+        </div>
+
+        <div class="analytics-card glass-card">
+          <div class="analytics-header">
+            <span>📊</span><h4>Life Trajectory Map</h4>
+          </div>
+          <div class="chart-wrap" style="height:200px">
+            <canvas id="trajectoryChart"></canvas>
+          </div>
+        </div>
+
+        <div class="analytics-card glass-card">
+          <div class="analytics-header">
+            <span>⭐</span><h4>Decision Star Log</h4>
+          </div>
+          <div class="star-log" id="starLog">
+            <p class="log-placeholder">No decisions charted yet. Click a star in the galaxy map.</p>
+          </div>
+        </div>
+
+        <div class="analytics-card glass-card analytics-wide">
+          <div class="analytics-header">
+            <span>🔭</span><h4>AI Cosmic Insights</h4>
+          </div>
+          <div class="cosmic-insights-list" id="cosmicInsightsList"></div>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Warp Cinematic (full screen) -->
+  <div class="warp-cinematic" id="warpCinematic">
+    <canvas id="warpCanvas"></canvas>
+    <div class="warp-narrative" id="warpNarrative"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ FEATURES ══════ -->
+  <section id="features" class="features-section">
+    <div class="section-label">CAPABILITIES</div>
+    <h2 class="section-title">What Makes It <span class="gradient-text">Powerful</span></h2>
+    <p class="section-sub">Built on advanced neural networks trained on millions of real-world decision outcomes.</p>
+
+    <div class="features-grid">
+      <div class="feature-card glass-card">
+        <div class="feature-icon-wrap">
+          <div class="feature-icon">🧠</div>
+          <div class="feature-icon-glow"></div>
+        </div>
+        <h3>AI-Powered Decisions</h3>
+        <p>Neural networks trained on millions of decision outcomes analyze your unique context and life variables.</p>
+        <div class="feature-tag">Deep Learning</div>
+      </div>
+
+      <div class="feature-card glass-card">
+        <div class="feature-icon-wrap">
+          <div class="feature-icon">🌌</div>
+          <div class="feature-icon-glow"></div>
+        </div>
+        <h3>Multiple Future Paths</h3>
+        <p>Explore branching timelines simultaneously. See the best, worst, and most probable outcomes side by side.</p>
+        <div class="feature-tag">Multiverse Mapping</div>
+      </div>
+
+      <div class="feature-card glass-card">
+        <div class="feature-icon-wrap">
+          <div class="feature-icon">⚡</div>
+          <div class="feature-icon-glow"></div>
+        </div>
+        <h3>Real-Time Simulation</h3>
+        <p>Results in under 3 seconds. Our quantum-parallel processing engine simulates thousands of futures instantly.</p>
+        <div class="feature-tag">Instant Results</div>
+      </div>
+
+      <div class="feature-card glass-card">
+        <div class="feature-icon-wrap">
+          <div class="feature-icon">💡</div>
+          <div class="feature-icon-glow"></div>
+        </div>
+        <h3>Smart Insights</h3>
+        <p>Get actionable insights, not just predictions. The engine explains why certain paths lead to specific outcomes.</p>
+        <div class="feature-tag">Explainable AI</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ HOW IT WORKS ══ -->
+  <section id="how-it-works" class="hiw-section">
+    <div class="section-label">PROCESS</div>
+    <h2 class="section-title">How It <span class="gradient-text">Works</span></h2>
+    <p class="section-sub">Three steps from decision to clarity.</p>
+
+    <div class="hiw-steps">
+      <div class="hiw-step">
+        <div class="step-number">01</div>
+        <div class="step-content glass-card">
+          <div class="step-icon">✍️</div>
+          <h3>Enter Your Decision</h3>
+          <p>Type any life decision you're facing — career, relationships, finances, or any personal crossroads.</p>
+        </div>
+        <div class="step-connector"></div>
+      </div>
+
+      <div class="hiw-step">
+        <div class="step-number">02</div>
+        <div class="step-content glass-card">
+          <div class="step-icon">🔮</div>
+          <h3>AI Processes Possibilities</h3>
+          <p>Our engine runs millions of simulations across probabilistic models, analyzing short and long-term ripple effects.</p>
+        </div>
+        <div class="step-connector"></div>
+      </div>
+
+      <div class="hiw-step">
+        <div class="step-number">03</div>
+        <div class="step-content glass-card">
+          <div class="step-icon">🌠</div>
+          <h3>Get Simulated Outcomes</h3>
+          <p>Receive a comprehensive map of your possible futures with probabilities, risk factors, and clear recommendations.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════ ABOUT ══════════ -->
+  <section id="about" class="about-section">
+    <div class="section-label">WHO WE ARE</div>
+    <h2 class="section-title">About the <span class="gradient-text">Project</span></h2>
+    <div class="about-grid">
+      <div class="about-card glass-card">
+        <div class="about-icon">🚀</div>
+        <h3>The Mission</h3>
+        <p>This AI project helps users explore decisions before making them. We believe informed choices lead to better lives, and that clarity shouldn't be a privilege.</p>
+      </div>
+      <div class="about-card glass-card">
+        <div class="about-icon">🧬</div>
+        <h3>The Technology</h3>
+        <p>Built on transformer-based language models fine-tuned on behavioral economics, psychology, and real-world outcome data from across human experience.</p>
+      </div>
+      <div class="about-card glass-card about-card-wide">
+        <div class="about-icon">🌍</div>
+        <h3>The Vision</h3>
+        <p>A world where no one makes a major life decision in the dark. By simulating futures, we reduce regret, increase confidence, and help humanity navigate complexity with wisdom.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ CONTACT ═══════ -->
+  <section id="contact" class="contact-section">
+    <div class="contact-bg-orb"></div>
+    <div class="contact-content">
+      <div class="section-label">GET STARTED</div>
+      <h2 class="section-title">Start Exploring Your <span class="gradient-text">Future Now</span></h2>
+      <p class="section-sub">Join thousands already navigating their lives with AI-powered clarity.</p>
+      <a href="#simulator" class="btn btn-primary btn-large">
+        <span>Try Simulator</span>
+        <span class="btn-arrow">→</span>
+      </a>
+    </div>
+
+    <div class="contact-form-wrap glass-card">
+      <h3 class="form-title">Send a Message</h3>
+      <div class="form-group">
+        <input type="text" id="contactName" class="form-input" placeholder="Your Name" autocomplete="name" />
+        <span class="form-error" id="err-name"></span>
+      </div>
+      <div class="form-group">
+        <input type="email" id="contactEmail" class="form-input" placeholder="Your Email" autocomplete="email" />
+        <span class="form-error" id="err-email"></span>
+      </div>
+      <div class="form-group">
+        <textarea id="contactMessage" class="form-input form-textarea" placeholder="Your message or question..."></textarea>
+        <span class="form-error" id="err-message"></span>
+      </div>
+      <button class="btn btn-primary" id="contactSubmitBtn" style="width:100%">Send Message</button>
+      <div class="form-success" id="form-success" style="display:none">✓ Message sent! We'll be in touch soon.</div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="nav-logo">
+          <span class="logo-icon">⬡</span>
+          <span class="logo-text">Life<span class="accent">Sim</span></span>
+        </div>
+        <p>AI-powered decision simulation engine. Explore your future before you live it.</p>
+        <div class="social-links">
+          <a href="#" class="social-icon" aria-label="GitHub">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+          <a href="#" class="social-icon" aria-label="Instagram">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+          <a href="#" class="social-icon" aria-label="Twitter/X">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-links-group">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#simulator">Simulator</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links-group">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#">Documentation</a></li>
+          <li><a href="#">API Access</a></li>
+          <li><a href="#">Research Paper</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Use</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2025 LifeSim — Decision Impact Engine. All rights reserved.</p>
+      <p class="footer-tagline">Built for the curious. Designed for the bold.</p>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════ TOAST ══════════ -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script src="app.js"></script>
+
+  <!-- ══ DECISION HISTORY MODAL ══ -->
+  <div class="slide-panel" id="historyModal" aria-hidden="true">
+    <div class="sp-backdrop" id="historyBackdrop"></div>
+    <div class="sp-panel glass-card">
+      <div class="sp-header">
+        <h3 class="sp-title">📜 Decision History</h3>
+        <button class="sp-close" id="historyModalClose">✕</button>
+      </div>
+      <div class="sp-toolbar">
+        <input type="text" id="historyModalSearch" class="v2-input" placeholder="🔍 Search decisions…" />
+        <select id="historyModalSort" class="v2-select">
+          <option value="newest">Newest</option>
+          <option value="oldest">Oldest</option>
+          <option value="highest">Highest Score</option>
+          <option value="lowest">Lowest Score</option>
+        </select>
+        <button class="btn btn-ghost btn-sm" id="historyModalClear">Clear All</button>
+      </div>
+      <div class="sp-body" id="historyModalBody"></div>
+    </div>
+  </div>
+
+  <!-- ══ LIFE JOURNEY MODAL ══ -->
+  <div class="slide-panel" id="journeyModal" aria-hidden="true">
+    <div class="sp-backdrop" id="journeyBackdrop"></div>
+    <div class="sp-panel glass-card">
+      <div class="sp-header">
+        <h3 class="sp-title">🌌 Life Journey</h3>
+        <button class="sp-close" id="journeyModalClose">✕</button>
+      </div>
+      <div class="sp-toolbar">
+        <div class="journey-filters">
+          <button class="jf-btn active" data-filter="all">All</button>
+          <button class="jf-btn" data-filter="week">This Week</button>
+          <button class="jf-btn" data-filter="month">This Month</button>
+        </div>
+        <button class="btn btn-ghost btn-sm" id="journeyModalClear">Clear History</button>
+      </div>
+      <div class="sp-body" id="journeyModalBody"></div>
+    </div>
+  </div>
+
+  <!-- ══ COMPARE RESULT PANEL (inside sim) ══ -->
+  <div class="cmp-result-overlay" id="cmpResultOverlay" style="display:none">
+    <div class="cmp-result-inner glass-card" id="cmpResultInner"></div>
+  </div>
+
+  <!-- ══ HOW TO USE GUIDE MODAL ══════════════════════════════ -->
+  <div class="guide-overlay" id="guideOverlay" aria-modal="true" role="dialog" aria-label="How to Use Guide" hidden>
+    <div class="guide-modal glass-card">
+      <div class="guide-header">
+        <div class="guide-header-left">
+          <span class="guide-header-icon">📖</span>
+          <h2 class="guide-header-title">How to Use</h2>
+          <span class="guide-header-sub">Decision Intelligence Engine</span>
+        </div>
+        <button class="guide-close" id="guideClose" aria-label="Close guide">✕</button>
+      </div>
+
+      <div class="guide-tabs" id="guideTabs">
+        <button class="guide-tab active" data-tab="simulator">🔮 Simulator</button>
+        <button class="guide-tab" data-tab="compare">⚔ Compare</button>
+        <button class="guide-tab" data-tab="tracker">📊 Life Tracker</button>
+        <button class="guide-tab" data-tab="galaxy">🌌 Galaxy Map</button>
+        <button class="guide-tab" data-tab="history">📜 History</button>
+      </div>
+
+      <div class="guide-body" id="guideBody">
+
+        <!-- Simulator -->
+        <div class="guide-panel active" data-panel="simulator">
+          <div class="guide-section">
+            <div class="guide-step"><span class="gs-num">1</span><div class="gs-content"><h4>Type your decision</h4><p>In the simulator search box, type any real life decision you're facing — career, relationships, finances, education, or anything else. Be specific for better results.</p><div class="gs-tip">💡 Example: "Should I quit my job to start a freelance business?"</div></div></div>
+            <div class="guide-step"><span class="gs-num">2</span><div class="gs-content"><h4>Press Enter or click Simulate</h4><p>Hit <kbd>Enter</kbd> or click the <strong>Simulate Future</strong> button. The AI will analyze thousands of possible outcomes and return results in seconds.</p></div></div>
+            <div class="guide-step"><span class="gs-num">3</span><div class="gs-content"><h4>Read your results</h4><p>You'll see three main paths: <span class="gs-tag gs-green">Best Path</span> <span class="gs-tag gs-blue">Most Likely</span> <span class="gs-tag gs-red">Risk Path</span> — each with probability scores, timelines, and emotional forecasts.</p></div></div>
+            <div class="guide-step"><span class="gs-num">4</span><div class="gs-content"><h4>Explore extended analysis</h4><p>Scroll down past the main results to see AI Analysis, Future Timeline, Emotional Forecast, and Recommended Missions — all generated specifically for your decision.</p></div></div>
+            <div class="guide-step"><span class="gs-num">5</span><div class="gs-content"><h4>Auto-reset when done</h4><p>Click anywhere outside the simulator or navigate to another section — the simulator automatically resets and is ready for your next decision.</p></div></div>
+          </div>
+        </div>
+
+        <!-- Compare -->
+        <div class="guide-panel" data-panel="compare">
+          <div class="guide-section">
+            <div class="guide-step"><span class="gs-num">1</span><div class="gs-content"><h4>Enter Compare Mode</h4><p>Click the <strong>⚔ Compare</strong> button beside the Simulate button. The simulator switches to a two-input layout.</p></div></div>
+            <div class="guide-step"><span class="gs-num">2</span><div class="gs-content"><h4>Enter two decisions</h4><p>Type Decision A in the top input and Decision B in the bottom input. Both decisions are simulated independently at the same time.</p><div class="gs-tip">💡 Example A: "Start a business" · Example B: "Get a corporate job"</div></div></div>
+            <div class="guide-step"><span class="gs-num">3</span><div class="gs-content"><h4>Run the comparison</h4><p>Click <strong>⚔ Run Comparison</strong>. Both decisions are sent to the AI simultaneously and results appear side by side.</p></div></div>
+            <div class="guide-step"><span class="gs-num">4</span><div class="gs-content"><h4>Read the battle result</h4><p>A winner is declared based on 5 metrics: Success Probability, Opportunity Score, Readiness, Risk Level, and Confidence. The option with more wins is recommended.</p></div></div>
+            <div class="guide-step"><span class="gs-num">5</span><div class="gs-content"><h4>Exit compare mode</h4><p>Click <strong>✕ Exit Compare</strong> to return to normal simulation mode at any time.</p></div></div>
+          </div>
+        </div>
+
+        <!-- Life Tracker -->
+        <div class="guide-panel" data-panel="tracker">
+          <div class="guide-section">
+            <div class="guide-step"><span class="gs-num">1</span><div class="gs-content"><h4>Adjust your habit sliders</h4><p>Scroll to the Life Tracker section. Move each slider to reflect your real daily habits — Sleep, Study, Screen Time, Exercise, Productivity, Social, and Mental Wellness.</p></div></div>
+            <div class="guide-step"><span class="gs-num">2</span><div class="gs-content"><h4>Watch scores update live</h4><p>Your Health, Focus, Productivity, Happiness, Discipline, and Mental scores update in real time as you move the sliders. The overall score and XP bar also update instantly.</p></div></div>
+            <div class="guide-step"><span class="gs-num">3</span><div class="gs-content"><h4>Save your daily snapshot</h4><p>Click <strong>💾 Save</strong> to record today's scores. This creates a snapshot in your Life Journey history so you can track improvement over time.</p></div></div>
+            <div class="guide-step"><span class="gs-num">4</span><div class="gs-content"><h4>View your journey</h4><p>Click <strong>🌌 Journey</strong> to open a slide panel showing all your saved snapshots with score bars, dates, and filter options by week or month.</p></div></div>
+            <div class="guide-step"><span class="gs-num">5</span><div class="gs-content"><h4>Read your analytics</h4><p>The Analytics section shows your score trends as a line chart, your personal bests, averages per category, and current streak count.</p></div></div>
+          </div>
+        </div>
+
+        <!-- Galaxy Map -->
+        <div class="guide-panel" data-panel="galaxy">
+          <div class="guide-section">
+            <div class="guide-step"><span class="gs-num">1</span><div class="gs-content"><h4>What the Galaxy Map represents</h4><p>The Galaxy Map is a visual representation of your life habits. Each glowing star represents a different life area — Sleep, Study, Exercise, Productivity, Social, Screen Time, and Mental Wellness.</p></div></div>
+            <div class="guide-step"><span class="gs-num">2</span><div class="gs-content"><h4>Click any star to inspect it</h4><p>Clicking a star opens a detail panel showing your current score for that habit, what it means, and how improving it affects your overall life score.</p></div></div>
+            <div class="guide-step"><span class="gs-num">3</span><div class="gs-content"><h4>The central orb</h4><p>The large glowing orb in the center represents your overall life score. Its color changes based on your Cosmic Mood — purple for balanced, green for thriving, red for burnout.</p></div></div>
+            <div class="guide-step"><span class="gs-num">4</span><div class="gs-content"><h4>Locked vs unlocked stars</h4><p>Some stars are locked until you improve specific habits. Raise your Life Tracker scores to unlock more stars and expand your galaxy.</p></div></div>
+            <div class="guide-step"><span class="gs-num">5</span><div class="gs-content"><h4>Personality Evolution</h4><p>Below the galaxy you'll see your Personality Type — updated live based on your habit combination. Adjust your sliders to evolve toward different personality archetypes.</p></div></div>
+          </div>
+        </div>
+
+        <!-- History -->
+        <div class="guide-panel" data-panel="history">
+          <div class="guide-section">
+            <div class="guide-step"><span class="gs-num">1</span><div class="gs-content"><h4>Automatic saving</h4><p>Every simulation you complete is automatically saved to your Decision History. No manual action needed — it happens in the background after each simulation.</p></div></div>
+            <div class="guide-step"><span class="gs-num">2</span><div class="gs-content"><h4>Open your history</h4><p>Click the <strong>📜 History</strong> button in the simulator area. A slide panel opens from the right showing all your past simulations.</p></div></div>
+            <div class="guide-step"><span class="gs-num">3</span><div class="gs-content"><h4>Search and sort</h4><p>Use the search box to find a specific decision by keyword. Sort by Newest, Oldest, Highest Score, or Lowest Score using the dropdown.</p></div></div>
+            <div class="guide-step"><span class="gs-num">4</span><div class="gs-content"><h4>Replay a past decision</h4><p>Click <strong>↩ Replay</strong> on any history card to load that decision back into the simulator input. Then click Simulate to re-run it with your current settings.</p></div></div>
+            <div class="guide-step"><span class="gs-num">5</span><div class="gs-content"><h4>Delete or clear history</h4><p>Delete individual entries with the 🗑 button, or clear all history at once. All history is stored locally in your browser — it never leaves your device.</p></div></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="guide-footer">
+        <p class="guide-footer-text">Need more help? <a href="#contact" onclick="document.getElementById('guideOverlay').hidden=true">Contact us</a></p>
+        <button class="btn btn-primary btn-sm" id="guideCloseBottom">Got it, let's go! 🚀</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

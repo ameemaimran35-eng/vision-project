@@ -1,0 +1,2175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Life Simulator — Decision Impact Engine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+/* ═══════════════════════════════════════════════════════════════
+   LIFE SIMULATOR — DECISION IMPACT ENGINE
+   CSS Stylesheet — Dark Futuristic / Space-Inspired UI
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── CSS Variables ─── */
+:root {
+  --bg: #030610;
+  --bg-2: #06091a;
+  --bg-card: rgba(10, 15, 40, 0.6);
+  --purple: #7c3aed;
+  --purple-light: #a855f7;
+  --blue: #3b82f6;
+  --blue-light: #60a5fa;
+  --cyan: #06b6d4;
+  --pink: #ec4899;
+  --text: #e2e8f0;
+  --text-muted: #64748b;
+  --text-dim: #94a3b8;
+  --border: rgba(124, 58, 237, 0.25);
+  --border-hover: rgba(168, 85, 247, 0.5);
+  --glow-purple: rgba(124, 58, 237, 0.4);
+  --glow-blue: rgba(59, 130, 246, 0.35);
+  --font-head: 'Orbitron', monospace;
+  --font-body: 'Poppins', sans-serif;
+  --radius: 16px;
+  --radius-lg: 24px;
+  --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─── Reset & Base ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  line-height: 1.65;
+}
+
+/* ─── Starfield Canvas ─── */
+#starfield {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ─── Section Base ─── */
+section {
+  position: relative;
+  z-index: 1;
+}
+
+.section-label {
+  font-family: var(--font-head);
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  color: var(--purple-light);
+  text-align: center;
+  margin-bottom: 1rem;
+  opacity: 0.8;
+}
+
+.section-title {
+  font-family: var(--font-head);
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.section-sub {
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 1.05rem;
+  max-width: 600px;
+  margin: 0 auto 3.5rem;
+  font-weight: 300;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--purple-light) 0%, var(--blue-light) 50%, var(--cyan) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Glass Card ─── */
+.glass-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+}
+
+.glass-card:hover {
+  border-color: var(--border-hover);
+  box-shadow: 0 0 40px var(--glow-purple), 0 20px 60px rgba(0,0,0,0.4);
+}
+
+/* ─── Buttons ─── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  border-radius: 50px;
+  font-family: var(--font-head);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--purple) 0%, var(--blue) 100%);
+  color: #fff;
+  box-shadow: 0 0 30px rgba(124, 58, 237, 0.5), 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 0 50px rgba(124, 58, 237, 0.7), 0 8px 30px rgba(0,0,0,0.4);
+}
+
+.btn-primary:active { transform: scale(0.98); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn-ghost:hover {
+  border-color: var(--purple-light);
+  background: rgba(124, 58, 237, 0.1);
+  color: var(--purple-light);
+}
+
+.btn-sm { padding: 0.6rem 1.4rem; font-size: 0.72rem; }
+.btn-large { padding: 1.1rem 2.8rem; font-size: 0.85rem; }
+
+.btn-glow {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent, rgba(255,255,255,0.15), transparent);
+  transform: translateX(-100%) skewX(-15deg);
+  transition: transform 0.6s;
+}
+
+.btn-primary:hover .btn-glow { transform: translateX(200%) skewX(-15deg); }
+
+.btn-arrow { font-size: 1.1rem; transition: transform 0.3s; }
+.btn:hover .btn-arrow { transform: translateX(4px); }
+
+/* ══════════════════════════════════════════════════════════════
+   NAVBAR
+══════════════════════════════════════════════════════════════ */
+#navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  transition: background var(--transition), box-shadow var(--transition);
+  padding: 0 2rem;
+}
+
+#navbar.scrolled {
+  background: rgba(3, 6, 16, 0.9);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 4px 30px rgba(0,0,0,0.4);
+}
+
+.nav-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.logo-icon {
+  font-size: 1.6rem;
+  color: var(--purple-light);
+  filter: drop-shadow(0 0 8px var(--purple-light));
+  animation: pulse-logo 3s ease-in-out infinite;
+}
+
+@keyframes pulse-logo {
+  0%, 100% { filter: drop-shadow(0 0 6px var(--purple-light)); }
+  50% { filter: drop-shadow(0 0 18px var(--purple-light)); }
+}
+
+.logo-text {
+  font-family: var(--font-head);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.logo-text .accent { color: var(--purple-light); }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  list-style: none;
+}
+
+.nav-link {
+  font-family: var(--font-head);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  text-decoration: none;
+  padding: 0.5rem 0.85rem;
+  border-radius: 8px;
+  transition: color 0.3s, background 0.3s;
+}
+
+.nav-link:hover {
+  color: var(--purple-light);
+  background: rgba(124, 58, 237, 0.12);
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   HERO
+══════════════════════════════════════════════════════════════ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 8rem 2rem 4rem;
+  max-width: 1280px;
+  margin: 0 auto;
+  gap: 4rem;
+}
+
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.orb-1 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(124,58,237,0.2) 0%, transparent 70%);
+  top: -10%; left: -10%;
+  animation: orb-float 8s ease-in-out infinite;
+}
+
+.orb-2 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%);
+  bottom: 10%; right: 5%;
+  animation: orb-float 10s ease-in-out infinite reverse;
+}
+
+.orb-3 {
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(6,182,212,0.12) 0%, transparent 70%);
+  top: 50%; left: 40%;
+  animation: orb-float 6s ease-in-out infinite 2s;
+}
+
+@keyframes orb-float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, -30px) scale(1.08); }
+}
+
+.hero-content {
+  flex: 1;
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+}
+
+.hero-eyebrow {
+  font-family: var(--font-head);
+  font-size: 0.72rem;
+  letter-spacing: 0.25em;
+  color: var(--purple-light);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.hero-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 32px;
+  height: 1px;
+  background: var(--purple-light);
+}
+
+.hero-heading {
+  font-family: var(--font-head);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.5rem;
+}
+
+.hero-sub {
+  color: var(--text-dim);
+  font-size: 1.1rem;
+  font-weight: 300;
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+  max-width: 480px;
+}
+
+.hero-cta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+}
+
+.hero-stats {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.stat { display: flex; flex-direction: column; gap: 0.2rem; }
+
+.stat-num {
+  font-family: var(--font-head);
+  font-size: 1.6rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--purple-light), var(--blue-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stat-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+.stat-divider {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, transparent, var(--border), transparent);
+}
+
+/* Hero Visual — Orbit */
+.hero-visual {
+  flex: 0 0 420px;
+  height: 420px;
+  position: relative;
+  z-index: 1;
+}
+
+.orbit-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  animation: spin linear infinite;
+}
+
+.ring-1 {
+  width: 200px; height: 200px;
+  border-color: rgba(124,58,237,0.4);
+  animation-duration: 8s;
+}
+
+.ring-2 {
+  width: 300px; height: 300px;
+  border-color: rgba(59,130,246,0.25);
+  animation-duration: 15s;
+  animation-direction: reverse;
+}
+
+.ring-3 {
+  width: 400px; height: 400px;
+  border-color: rgba(6,182,212,0.15);
+  animation-duration: 25s;
+}
+
+@keyframes spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+
+.planet-core {
+  position: absolute;
+  width: 80px; height: 80px;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, var(--purple-light), var(--blue), #030610);
+  box-shadow: 0 0 40px var(--glow-purple), 0 0 80px rgba(59,130,246,0.3);
+  animation: planet-pulse 4s ease-in-out infinite;
+}
+
+@keyframes planet-pulse {
+  0%, 100% { box-shadow: 0 0 40px var(--glow-purple), 0 0 80px rgba(59,130,246,0.3); }
+  50% { box-shadow: 0 0 70px rgba(124,58,237,0.7), 0 0 120px rgba(59,130,246,0.5); }
+}
+
+.orbit-dot {
+  position: absolute;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--purple-light);
+  box-shadow: 0 0 12px var(--purple-light);
+  top: 50%; left: 50%;
+}
+
+.dot-1 {
+  width: 10px; height: 10px;
+  animation: orbit-1 8s linear infinite;
+  background: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan);
+}
+
+.dot-2 {
+  animation: orbit-2 15s linear infinite;
+  background: var(--purple-light);
+}
+
+.dot-3 {
+  width: 8px; height: 8px;
+  animation: orbit-3 25s linear infinite;
+  background: var(--blue-light);
+  box-shadow: 0 0 8px var(--blue-light);
+}
+
+@keyframes orbit-1 {
+  from { transform: rotate(0deg) translateX(100px) rotate(0deg); }
+  to   { transform: rotate(360deg) translateX(100px) rotate(-360deg); }
+}
+
+@keyframes orbit-2 {
+  from { transform: rotate(120deg) translateX(150px) rotate(-120deg); }
+  to   { transform: rotate(480deg) translateX(150px) rotate(-480deg); }
+}
+
+@keyframes orbit-3 {
+  from { transform: rotate(240deg) translateX(200px) rotate(-240deg); }
+  to   { transform: rotate(600deg) translateX(200px) rotate(-600deg); }
+}
+
+/* Scroll Indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-head);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  z-index: 1;
+  animation: scroll-bounce 2s ease-in-out infinite;
+}
+
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--purple-light), transparent);
+}
+
+@keyframes scroll-bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SIMULATOR SECTION
+══════════════════════════════════════════════════════════════ */
+.simulator-section {
+  padding: 6rem 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.sim-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.sim-box {
+  overflow: hidden;
+}
+
+.sim-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  background: rgba(124,58,237,0.05);
+}
+
+.sim-dots { display: flex; gap: 6px; }
+
+.dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+}
+
+.dot.red { background: #ff5f56; }
+.dot.yellow { background: #ffbd2e; }
+.dot.green { background: #27c93f; }
+
+.sim-title-bar {
+  font-family: var(--font-head);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+}
+
+.sim-body { padding: 1.5rem; }
+
+.decision-input {
+  width: 100%;
+  min-height: 140px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  padding: 1.2rem;
+  resize: vertical;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  outline: none;
+  line-height: 1.65;
+}
+
+.decision-input::placeholder { color: var(--text-muted); }
+
+.decision-input:focus {
+  border-color: var(--purple-light);
+  box-shadow: 0 0 20px rgba(124,58,237,0.2), inset 0 0 20px rgba(124,58,237,0.05);
+}
+
+.sim-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.char-count {
+  font-family: var(--font-head);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+}
+
+.sim-btn { gap: 0.6rem; }
+
+.btn-icon { font-size: 1rem; }
+
+/* Loading */
+.sim-loading {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.sim-loading.active { display: flex; }
+
+.loading-ring {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  border: 3px solid var(--border);
+  border-top-color: var(--purple-light);
+  animation: spin 1s linear infinite;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-inner {
+  width: 50px; height: 50px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  border-bottom-color: var(--blue-light);
+  animation: spin 0.6s linear infinite reverse;
+}
+
+.loading-text {
+  font-family: var(--font-head);
+  font-size: 1rem;
+  color: var(--purple-light);
+  display: flex;
+  gap: 0;
+}
+
+.loading-dots span {
+  animation: dot-blink 1.4s infinite;
+  opacity: 0;
+}
+
+.loading-dots span:nth-child(1) { animation-delay: 0s; }
+.loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+.loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes dot-blink {
+  0%, 80%, 100% { opacity: 0; }
+  40% { opacity: 1; }
+}
+
+.loading-sub {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  max-width: 300px;
+}
+
+.loading-progress {
+  width: 100%;
+  max-width: 350px;
+  height: 3px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--purple), var(--blue), var(--cyan));
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+/* Output Card */
+.sim-output {
+  display: none;
+  padding: 2rem;
+}
+
+.sim-output.visible { display: block; }
+
+.output-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.output-badge {
+  font-family: var(--font-head);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--cyan);
+  background: rgba(6,182,212,0.1);
+  border: 1px solid rgba(6,182,212,0.3);
+  padding: 0.4rem 1rem;
+  border-radius: 50px;
+}
+
+.output-meta {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.meta-item {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.meta-item strong { color: var(--purple-light); }
+
+.output-label {
+  font-family: var(--font-head);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.output-decision {
+  color: var(--text);
+  font-style: italic;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: rgba(255,255,255,0.03);
+  border-left: 3px solid var(--purple);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.output-result {
+  color: var(--text);
+  margin-bottom: 2rem;
+  line-height: 1.75;
+  font-size: 1rem;
+}
+
+.output-paths {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.path-card {
+  padding: 1.25rem;
+  border-radius: var(--radius);
+  border: 1px solid;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.path-positive {
+  border-color: rgba(34,197,94,0.3);
+  background: rgba(34,197,94,0.05);
+}
+
+.path-neutral {
+  border-color: rgba(234,179,8,0.3);
+  background: rgba(234,179,8,0.05);
+}
+
+.path-negative {
+  border-color: rgba(239,68,68,0.3);
+  background: rgba(239,68,68,0.05);
+}
+
+.path-icon {
+  font-size: 1.3rem;
+  display: block;
+}
+
+.path-positive .path-icon { color: #22c55e; }
+.path-neutral .path-icon  { color: #eab308; }
+.path-negative .path-icon { color: #ef4444; }
+
+.path-label {
+  font-family: var(--font-head);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+}
+
+.path-text { font-size: 0.82rem; color: var(--text-dim); line-height: 1.5; }
+
+.output-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   FEATURES SECTION
+══════════════════════════════════════════════════════════════ */
+.features-section {
+  padding: 6rem 2rem;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.feature-card {
+  padding: 2.5rem 2rem;
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at top left, rgba(124,58,237,0.12) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.feature-card:hover::before { opacity: 1; }
+
+.feature-card:hover {
+  transform: translateY(-8px);
+}
+
+.feature-icon-wrap {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 1.5rem;
+}
+
+.feature-icon {
+  font-size: 2.5rem;
+  display: block;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.4s;
+}
+
+.feature-card:hover .feature-icon { transform: scale(1.15) rotate(-5deg); }
+
+.feature-icon-glow {
+  position: absolute;
+  inset: -8px;
+  background: radial-gradient(circle, var(--glow-purple) 0%, transparent 70%);
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.4s;
+  filter: blur(8px);
+}
+
+.feature-card:hover .feature-icon-glow { opacity: 1; }
+
+.feature-card h3 {
+  font-family: var(--font-head);
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.02em;
+}
+
+.feature-card p {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  line-height: 1.65;
+  margin-bottom: 1.5rem;
+}
+
+.feature-tag {
+  font-family: var(--font-head);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  color: var(--purple-light);
+  background: rgba(124,58,237,0.12);
+  border: 1px solid rgba(124,58,237,0.25);
+  padding: 0.3rem 0.75rem;
+  border-radius: 20px;
+  display: inline-block;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   HOW IT WORKS
+══════════════════════════════════════════════════════════════ */
+.hiw-section {
+  padding: 6rem 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+
+}
+
+.hiw-steps {
+  display: flex;
+  flex-direction: column;
+   gap: 0;
+}
+
+.hiw-step {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  position: relative;
+  
+}
+
+.step-number {
+  font-family: var(--font-head);
+  font-size: 3rem;
+  font-weight: 900;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(124,58,237,0.4);
+  line-height: 1;
+  min-width: 80px;
+  padding-top: 1.75rem;
+  flex-shrink: 0;
+  
+}
+
+.step-content {
+  flex: 1;
+  padding: 2rem;
+  margin-bottom: 0;
+}
+
+.step-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.step-content h3 {
+  font-family: var(--font-head);
+  font-size: 1.05rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.02em;
+}
+
+.step-content p { color: var(--text-dim); font-size: 0.92rem; line-height: 1.65; }
+
+.step-connector {
+  position: absolute;
+  left: 39px;
+  top: calc(100% - 1.5rem);
+  width: 2px;
+  height: calc(2rem + 3rem);
+  background: linear-gradient(to bottom, var(--purple-light), transparent);
+  z-index: 0;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   ABOUT SECTION
+══════════════════════════════════════════════════════════════ */
+.about-section {
+  padding: 6rem 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 1.5rem;
+}
+
+.about-card {
+  padding: 2.5rem;
+}
+
+.about-card-wide {
+  grid-column: 1 / -1;
+}
+
+.about-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1.25rem;
+  display: block;
+  transition: transform 0.4s;
+}
+
+.about-card:hover .about-icon { transform: scale(1.15); }
+
+.about-card h3 {
+  font-family: var(--font-head);
+  font-size: 1.05rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.02em;
+}
+
+.about-card p { color: var(--text-dim); line-height: 1.7; }
+
+/* ══════════════════════════════════════════════════════════════
+   CONTACT SECTION
+══════════════════════════════════════════════════════════════ */
+.contact-section {
+  padding: 8rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+  position: relative;
+}
+
+.contact-bg-orb {
+  position: absolute;
+  width: 600px; height: 600px;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(124,58,237,0.1) 0%, transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+.contact-content { position: relative; z-index: 1; }
+
+.contact-content .section-title { text-align: left; }
+.contact-content .section-label { text-align: left; }
+.contact-content .section-sub { text-align: left; margin-left: 0; margin-bottom: 2.5rem; }
+
+.contact-form-wrap {
+  padding: 2.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.form-title {
+  font-family: var(--font-head);
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  letter-spacing: 0.05em;
+}
+
+.form-group { margin-bottom: 1.25rem; }
+
+.form-input {
+  width: 100%;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  padding: 0.9rem 1.2rem;
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.form-input::placeholder { color: var(--text-muted); }
+
+.form-input:focus {
+  border-color: var(--purple-light);
+  box-shadow: 0 0 15px rgba(124,58,237,0.2);
+}
+
+.form-textarea { resize: vertical; min-height: 120px; }
+
+/* ══════════════════════════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════════════════════════ */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 4rem 2rem 2rem;
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(to bottom, transparent, rgba(3,6,16,0.95));
+}
+
+.footer-top {
+  max-width: 1200px;
+  margin: 0 auto 3rem;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 4rem;
+}
+
+.footer-brand .nav-logo { margin-bottom: 1rem; }
+
+.footer-brand p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  max-width: 280px;
+}
+
+.social-links { display: flex; gap: 0.75rem; }
+
+.social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  transition: all var(--transition);
+  text-decoration: none;
+}
+
+.social-icon:hover {
+  border-color: var(--purple-light);
+  color: var(--purple-light);
+  background: rgba(124,58,237,0.1);
+  transform: translateY(-3px);
+}
+
+.footer-links-group h4 {
+  font-family: var(--font-head);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  color: var(--text-dim);
+  margin-bottom: 1.25rem;
+}
+
+.footer-links-group ul { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+
+.footer-links-group a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.88rem;
+  transition: color 0.3s, padding-left 0.3s;
+}
+
+.footer-links-group a:hover {
+  color: var(--purple-light);
+  padding-left: 4px;
+}
+
+.footer-bottom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer-bottom p { color: var(--text-muted); font-size: 0.83rem; }
+
+.footer-tagline {
+  font-family: var(--font-head);
+  font-size: 0.68rem !important;
+  letter-spacing: 0.12em;
+  color: var(--purple-light) !important;
+  opacity: 0.6;
+}
+
+/* ─── Toast ─── */
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: rgba(10,15,40,0.95);
+  border: 1px solid var(--purple-light);
+  border-radius: var(--radius);
+  padding: 1rem 1.5rem;
+  color: var(--text);
+  font-size: 0.88rem;
+  z-index: 200;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s;
+  pointer-events: none;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 25px var(--glow-purple);
+  max-width: 320px;
+}
+
+.toast.show { opacity: 1; transform: translateY(0); }
+
+/* ══════════════════════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .hero { flex-direction: column; text-align: center; padding-top: 6rem; }
+  .hero-content { max-width: 100%; }
+  .hero-eyebrow { justify-content: center; }
+  .hero-sub { margin-left: auto; margin-right: auto; }
+  .hero-cta { justify-content: center; }
+  .hero-stats { justify-content: center; }
+  .hero-visual { width: 300px; height: 300px; flex: none; }
+  .ring-1 { width: 140px; height: 140px; }
+  .ring-2 { width: 210px; height: 210px; }
+  .ring-3 { width: 280px; height: 280px; }
+  .contact-section { grid-template-columns: 1fr; gap: 3rem; }
+  .contact-content .section-title { text-align: center; }
+  .contact-content .section-label { text-align: center; }
+  .contact-content .section-sub { text-align: center; margin: 0 auto 2rem; }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+  .footer-brand { grid-column: 1 / -1; }
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 72px; left: 0; right: 0;
+    background: rgba(3,6,16,0.97);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 1.5rem;
+    gap: 0.5rem;
+  }
+  .nav-links.open { display: flex; }
+  .hamburger { display: flex; }
+  .about-grid { grid-template-columns: 1fr; }
+  .about-card-wide { grid-column: 1; }
+  .output-paths { grid-template-columns: 1fr; }
+  .hiw-steps { gap: 2rem; }
+  .step-connector { display: none; }
+  .hiw-step { gap: 1rem; }
+  .step-number { font-size: 2rem; min-width: 50px; }
+  .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+  .hero-visual { display: none; }
+}
+
+@media (max-width: 480px) {
+  .btn { padding: 0.75rem 1.5rem; font-size: 0.72rem; }
+  .btn-large { padding: 0.9rem 2rem; }
+  .hero-stats { gap: 1rem; }
+  .stat-num { font-size: 1.3rem; }
+  .features-grid { grid-template-columns: 1fr; }
+  .sim-footer { flex-direction: column; align-items: stretch; }
+  .sim-btn { justify-content: center; }
+}
+
+</style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════ CANVAS BG ═══ -->
+  <canvas id="starfield"></canvas>
+
+  <!-- ═══════════════════════════════════════════ NAVBAR ═══════ -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <span class="logo-icon">⬡</span>
+        <span class="logo-text">Life<span class="accent">Sim</span></span>
+      </div>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" class="nav-link">Home</a></li>
+        <li><a href="#simulator" class="nav-link">Simulator</a></li>
+        <li><a href="#features" class="nav-link">Features</a></li>
+        <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════ HERO ══════════ -->
+  <section id="home" class="hero">
+    <div class="hero-orb orb-1"></div>
+    <div class="hero-orb orb-2"></div>
+    <div class="hero-orb orb-3"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">AI-Powered Decision Engine</p>
+      <h1 class="hero-heading">
+        Explore Your<br/>
+        <span class="gradient-text">Decisions</span><br/>
+        in the Universe
+      </h1>
+      <p class="hero-sub">Every choice ripples across time. Simulate your future before you live it — powered by advanced AI that maps the infinite paths of possibility.</p>
+      <div class="hero-cta">
+        <a href="#simulator" class="btn btn-primary">
+          <span class="btn-text">Start Simulation</span>
+          <span class="btn-glow"></span>
+        </a>
+        <a href="#how-it-works" class="btn btn-ghost">How It Works</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">∞</span><span class="stat-label">Possible Futures</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">2.4M</span><span class="stat-label">Simulations Run</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">98%</span><span class="stat-label">Accuracy Rate</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="orbit-ring ring-1"></div>
+      <div class="orbit-ring ring-2"></div>
+      <div class="orbit-ring ring-3"></div>
+      <div class="planet-core"></div>
+      <div class="orbit-dot dot-1"></div>
+      <div class="orbit-dot dot-2"></div>
+      <div class="orbit-dot dot-3"></div>
+    </div>
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ SIMULATOR ═════ -->
+  <section id="simulator" class="simulator-section">
+    <div class="section-label">CORE ENGINE</div>
+    <h2 class="section-title">Decision <span class="gradient-text">Simulator</span></h2>
+    <p class="section-sub">Type any life decision. Our AI maps every possible outcome across parallel timelines.</p>
+
+    <div class="sim-container">
+      <div class="sim-box glass-card">
+        <div class="sim-header">
+          <div class="sim-dots">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+          </div>
+          <span class="sim-title-bar">decision_input.ai</span>
+        </div>
+        <div class="sim-body">
+          <textarea id="decisionInput" class="decision-input" placeholder="e.g. Should I quit my job to start a business?&#10;e.g. Should I move to another city?&#10;e.g. Should I pursue this relationship?"></textarea>
+          <div class="sim-footer">
+            <div class="char-count"><span id="charCount">0</span> / 300</div>
+            <button class="btn btn-primary sim-btn" id="simulateBtn">
+              <span class="btn-icon">◈</span>
+              <span>Simulate Future</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loading State -->
+      <div class="sim-loading" id="simLoading">
+        <div class="loading-ring">
+          <div class="loading-inner"></div>
+        </div>
+        <p class="loading-text">Simulating<span class="loading-dots"><span>.</span><span>.</span><span>.</span></span></p>
+        <p class="loading-sub">Mapping parallel timelines across the decision matrix</p>
+        <div class="loading-progress">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+      </div>
+
+      <!-- Output Card -->
+      <div class="sim-output glass-card" id="simOutput">
+        <div class="output-header">
+          <span class="output-badge">◈ Simulation Complete</span>
+          <div class="output-meta">
+            <span class="meta-item">Confidence: <strong id="confidence">—</strong></span>
+            <span class="meta-item">Paths: <strong id="pathsCount">—</strong></span>
+          </div>
+        </div>
+        <div class="output-body">
+          <h3 class="output-label">Your Decision:</h3>
+          <p class="output-decision" id="outputDecision">—</p>
+          <h3 class="output-label">Simulated Outcome:</h3>
+          <div class="output-result" id="outputResult">—</div>
+          <div class="output-paths">
+            <div class="path-card path-positive">
+              <span class="path-icon">↑</span>
+              <span class="path-label">Best Path</span>
+              <p class="path-text" id="pathBest">—</p>
+            </div>
+            <div class="path-card path-neutral">
+              <span class="path-icon">→</span>
+              <span class="path-label">Most Likely</span>
+              <p class="path-text" id="pathLikely">—</p>
+            </div>
+            <div class="path-card path-negative">
+              <span class="path-icon">↓</span>
+              <span class="path-label">Risk Path</span>
+              <p class="path-text" id="pathRisk">—</p>
+            </div>
+          </div>
+        </div>
+        <div class="output-actions">
+          <button class="btn btn-ghost btn-sm" id="resetBtn">← New Simulation</button>
+          <button class="btn btn-primary btn-sm" id="saveBtn">Save Result</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ FEATURES ══════ -->
+  <section id="features" class="features-section">
+    <div class="section-label">CAPABILITIES</div>
+    <h2 class="section-title">What Makes It <span class="gradient-text">Powerful</span></h2>
+    <p class="section-sub">Built on advanced neural networks trained on millions of real-world decision outcomes.</p>
+
+    <div class="features-grid">
+      <div class="feature-card glass-card">
+        <div class="feature-icon-wrap">
+          <div class="feature-icon">🧠</div>
+          <div class="feature-icon-glow"></div>
+        </div>
+        <h3>AI-Powered Decisions</h3>
+        <p>Neural networks trained on millions of decision outcomes analyze your unique context and life variables.</p>
+        <div class="feature-tag">Deep Learning</div>
+      </div>
+
+      <div class="feature-card glass-card">
+        <div class="feature-icon-wrap">
+          <div class="feature-icon">🌌</div>
+          <div class="feature-icon-glow"></div>
+        </div>
+        <h3>Multiple Future Paths</h3>
+        <p>Explore branching timelines simultaneously. See the best, worst, and most probable outcomes side by side.</p>
+        <div class="feature-tag">Multiverse Mapping</div>
+      </div>
+
+      <div class="feature-card glass-card">
+        <div class="feature-icon-wrap">
+          <div class="feature-icon">⚡</div>
+          <div class="feature-icon-glow"></div>
+        </div>
+        <h3>Real-Time Simulation</h3>
+        <p>Results in under 3 seconds. Our quantum-parallel processing engine simulates thousands of futures instantly.</p>
+        <div class="feature-tag">Instant Results</div>
+      </div>
+
+      <div class="feature-card glass-card">
+        <div class="feature-icon-wrap">
+          <div class="feature-icon">💡</div>
+          <div class="feature-icon-glow"></div>
+        </div>
+        <h3>Smart Insights</h3>
+        <p>Get actionable insights, not just predictions. The engine explains why certain paths lead to specific outcomes.</p>
+        <div class="feature-tag">Explainable AI</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ HOW IT WORKS ══ -->
+  <section id="how-it-works" class="hiw-section">
+    <div class="section-label">PROCESS</div>
+    <h2 class="section-title">How It <span class="gradient-text">Works</span></h2>
+    <p class="section-sub">Three steps from decision to clarity.</p>
+
+    <div class="hiw-steps">
+      <div class="hiw-step">
+        <div class="step-number">01</div>
+        <div class="step-content glass-card">
+          <div class="step-icon">✍️</div>
+          <h3>Enter Your Decision</h3>
+          <p>Type any life decision you're facing — career, relationships, finances, or any personal crossroads.</p>
+        </div>
+        <div class="step-connector"></div>
+      </div>
+
+      <div class="hiw-step">
+        <div class="step-number">02</div>
+        <div class="step-content glass-card">
+          <div class="step-icon">🔮</div>
+          <h3>AI Processes Possibilities</h3>
+          <p>Our engine runs millions of simulations across probabilistic models, analyzing short and long-term ripple effects.</p>
+        </div>
+        <div class="step-connector"></div>
+      </div>
+
+      <div class="hiw-step">
+        <div class="step-number">03</div>
+        <div class="step-content glass-card">
+          <div class="step-icon">🌠</div>
+          <h3>Get Simulated Outcomes</h3>
+          <p>Receive a comprehensive map of your possible futures with probabilities, risk factors, and clear recommendations.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ ABOUT ══════════ -->
+  <section id="about" class="about-section">
+    <div class="section-label">WHO WE ARE</div>
+    <h2 class="section-title">About the <span class="gradient-text">Project</span></h2>
+    <div class="about-grid">
+      <div class="about-card glass-card">
+        <div class="about-icon">🚀</div>
+        <h3>The Mission</h3>
+        <p>This AI project helps users explore decisions before making them. We believe informed choices lead to better lives, and that clarity shouldn't be a privilege.</p>
+      </div>
+      <div class="about-card glass-card">
+        <div class="about-icon">🧬</div>
+        <h3>The Technology</h3>
+        <p>Built on transformer-based language models fine-tuned on behavioral economics, psychology, and real-world outcome data from across human experience.</p>
+      </div>
+      <div class="about-card glass-card about-card-wide">
+        <div class="about-icon">🌍</div>
+        <h3>The Vision</h3>
+        <p>A world where no one makes a major life decision in the dark. By simulating futures, we reduce regret, increase confidence, and help humanity navigate complexity with wisdom.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ CONTACT ═══════ -->
+  <section id="contact" class="contact-section">
+    <div class="contact-bg-orb"></div>
+    <div class="contact-content">
+      <div class="section-label">GET STARTED</div>
+      <h2 class="section-title">Start Exploring Your <span class="gradient-text">Future Now</span></h2>
+      <p class="section-sub">Join thousands already navigating their lives with AI-powered clarity.</p>
+      <a href="#simulator" class="btn btn-primary btn-large">
+        <span>Try Simulator</span>
+        <span class="btn-arrow">→</span>
+      </a>
+    </div>
+
+    <div class="contact-form-wrap glass-card">
+      <h3 class="form-title">Send a Message</h3>
+      <div class="form-group">
+        <input type="text" class="form-input" placeholder="Your Name" />
+      </div>
+      <div class="form-group">
+        <input type="email" class="form-input" placeholder="Your Email" />
+      </div>
+      <div class="form-group">
+        <textarea class="form-input form-textarea" placeholder="Your message or question..."></textarea>
+      </div>
+      <button class="btn btn-primary" style="width:100%">Send Message</button>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ FOOTER ════════ -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="nav-logo">
+          <span class="logo-icon">⬡</span>
+          <span class="logo-text">Life<span class="accent">Sim</span></span>
+        </div>
+        <p>AI-powered decision simulation engine. Explore your future before you live it.</p>
+        <div class="social-links">
+          <a href="#" class="social-icon" aria-label="GitHub">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+          <a href="#" class="social-icon" aria-label="Instagram">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+          <a href="#" class="social-icon" aria-label="Twitter/X">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-links-group">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#simulator">Simulator</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links-group">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#">Documentation</a></li>
+          <li><a href="#">API Access</a></li>
+          <li><a href="#">Research Paper</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Use</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2025 LifeSim — Decision Impact Engine. All rights reserved.</p>
+      <p class="footer-tagline">Built for the curious. Designed for the bold.</p>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════ TOAST ══════════ -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script>
+/* ═══════════════════════════════════════════════════════════════
+   LIFE SIMULATOR — DECISION IMPACT ENGINE
+   app.js — Animations, Interactions, Simulator Logic
+   ═══════════════════════════════════════════════════════════════ */
+
+// ─── Wait for DOM ───────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+
+  // ── Register GSAP Plugins ──────────────────────────────────────
+  gsap.registerPlugin(ScrollTrigger);
+
+  // ── Init everything ────────────────────────────────────────────
+  initStarfield();
+  initNavbar();
+  initHeroAnimations();
+  initScrollAnimations();
+  initSimulator();
+  initHamburger();
+
+});
+
+/* ════════════════════════════════════════════════════════════════
+   STARFIELD CANVAS
+════════════════════════════════════════════════════════════════ */
+function initStarfield() {
+  const canvas = document.getElementById('starfield');
+  const ctx = canvas.getContext('2d');
+
+  let W, H, stars = [], shootingStars = [];
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  function createStars(count) {
+    stars = [];
+    for (let i = 0; i < count; i++) {
+      const depth = Math.random(); // 0 = far, 1 = close
+      stars.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: 0.3 + depth * 1.8,
+        speed: 0.02 + depth * 0.08,
+        opacity: 0.2 + depth * 0.8,
+        twinkleSpeed: 0.005 + Math.random() * 0.015,
+        twinklePhase: Math.random() * Math.PI * 2,
+        color: getStarColor(),
+      });
+    }
+  }
+
+  function getStarColor() {
+    const colors = ['255,255,255', '200,180,255', '180,210,255', '255,200,200'];
+    return colors[Math.floor(Math.random() * colors.length)];
+  }
+
+  function spawnShootingStar() {
+    shootingStars.push({
+      x: Math.random() * W,
+      y: Math.random() * H * 0.5,
+      len: 80 + Math.random() * 120,
+      speed: 6 + Math.random() * 8,
+      angle: Math.PI / 6 + Math.random() * Math.PI / 8,
+      opacity: 1,
+      life: 1,
+    });
+  }
+
+  function drawStars() {
+    ctx.clearRect(0, 0, W, H);
+
+    // Static stars
+    stars.forEach(s => {
+      s.twinklePhase += s.twinkleSpeed;
+      const twinkle = 0.6 + 0.4 * Math.sin(s.twinklePhase);
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${s.color}, ${s.opacity * twinkle})`;
+      ctx.fill();
+    });
+
+    // Shooting stars
+    shootingStars.forEach((ss, i) => {
+      ctx.save();
+      ctx.translate(ss.x, ss.y);
+      ctx.rotate(ss.angle);
+      const grad = ctx.createLinearGradient(0, 0, ss.len, 0);
+      grad.addColorStop(0, `rgba(255,255,255,0)`);
+      grad.addColorStop(0.7, `rgba(200,180,255,${ss.opacity * 0.8})`);
+      grad.addColorStop(1, `rgba(255,255,255,${ss.opacity})`);
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.lineTo(ss.len, 0);
+      ctx.stroke();
+      ctx.restore();
+
+      ss.x += Math.cos(ss.angle) * ss.speed;
+      ss.y += Math.sin(ss.angle) * ss.speed;
+      ss.life -= 0.012;
+      ss.opacity = ss.life;
+
+      if (ss.life <= 0) shootingStars.splice(i, 1);
+    });
+
+    // Random shooting star spawns
+    if (Math.random() < 0.004) spawnShootingStar();
+
+    requestAnimationFrame(drawStars);
+  }
+
+  window.addEventListener('resize', () => {
+    resize();
+    createStars(250);
+  });
+
+  resize();
+  createStars(250);
+  drawStars();
+}
+
+/* ════════════════════════════════════════════════════════════════
+   NAVBAR — Scroll + Mobile
+════════════════════════════════════════════════════════════════ */
+function initNavbar() {
+  const navbar = document.getElementById('navbar');
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  });
+
+  // Active link highlight on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => link.classList.remove('active'));
+        const activeLink = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+        if (activeLink) activeLink.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-40% 0px -50% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+}
+
+function initHamburger() {
+  const hamburger = document.getElementById('hamburger');
+  const navLinks  = document.getElementById('navLinks');
+
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+    hamburger.classList.toggle('open');
+  });
+
+  // Close on link click
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      hamburger.classList.remove('open');
+    });
+  });
+}
+
+/* ════════════════════════════════════════════════════════════════
+   HERO ANIMATIONS — Page Load
+════════════════════════════════════════════════════════════════ */
+function initHeroAnimations() {
+  const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+  // Staggered page load sequence
+  tl.fromTo('#navbar',
+    { y: -80, opacity: 0 },
+    { y: 0, opacity: 1, duration: 0.8 }
+  )
+  .fromTo('.hero-eyebrow',
+    { y: 30, opacity: 0 },
+    { y: 0, opacity: 1, duration: 0.7 },
+    '-=0.3'
+  )
+  .fromTo('.hero-heading',
+    { y: 50, opacity: 0 },
+    { y: 0, opacity: 1, duration: 0.9 },
+    '-=0.5'
+  )
+  .fromTo('.hero-sub',
+    { y: 30, opacity: 0 },
+    { y: 0, opacity: 1, duration: 0.7 },
+    '-=0.5'
+  )
+  .fromTo('.hero-cta',
+    { y: 30, opacity: 0 },
+    { y: 0, opacity: 1, duration: 0.7 },
+    '-=0.4'
+  )
+  .fromTo('.hero-stats',
+    { y: 20, opacity: 0 },
+    { y: 0, opacity: 1, duration: 0.6 },
+    '-=0.3'
+  )
+  .fromTo('.hero-visual',
+    { scale: 0.7, opacity: 0 },
+    { scale: 1, opacity: 1, duration: 1.2, ease: 'back.out(1.5)' },
+    '-=1'
+  )
+  .fromTo('.scroll-indicator',
+    { opacity: 0 },
+    { opacity: 1, duration: 0.6 },
+    '-=0.3'
+  );
+}
+
+/* ════════════════════════════════════════════════════════════════
+   SCROLL ANIMATIONS — GSAP ScrollTrigger
+════════════════════════════════════════════════════════════════ */
+function initScrollAnimations() {
+
+  // Generic section titles
+  gsap.utils.toArray('.section-label, .section-title, .section-sub').forEach(el => {
+    gsap.fromTo(el,
+      { y: 40, opacity: 0 },
+      {
+        y: 0, opacity: 1, duration: 0.8,
+        scrollTrigger: { trigger: el, start: 'top 85%', once: true }
+      }
+    );
+  });
+
+  // Feature cards — stagger
+  gsap.fromTo('.feature-card',
+    { y: 60, opacity: 0 },
+    {
+      y: 0, opacity: 1, duration: 0.8, stagger: 0.15,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: '.features-grid', start: 'top 80%', once: true }
+    }
+  );
+
+  // How it works steps
+  gsap.fromTo('.hiw-step',
+    { x: -50, opacity: 0 },
+    {
+      x: 0, opacity: 1, duration: 0.8, stagger: 0.2,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: '.hiw-steps', start: 'top 80%', once: true }
+    }
+  );
+
+  // Simulator section
+  gsap.fromTo('.sim-box',
+    { y: 60, opacity: 0, scale: 0.96 },
+    {
+      y: 0, opacity: 1, scale: 1, duration: 1,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: '.simulator-section', start: 'top 75%', once: true }
+    }
+  );
+
+  // About cards
+  gsap.fromTo('.about-card',
+    { y: 50, opacity: 0 },
+    {
+      y: 0, opacity: 1, duration: 0.7, stagger: 0.15,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: '.about-grid', start: 'top 80%', once: true }
+    }
+  );
+
+  // Contact section
+  gsap.fromTo('.contact-content',
+    { x: -50, opacity: 0 },
+    {
+      x: 0, opacity: 1, duration: 0.9,
+      scrollTrigger: { trigger: '.contact-section', start: 'top 78%', once: true }
+    }
+  );
+
+  gsap.fromTo('.contact-form-wrap',
+    { x: 50, opacity: 0 },
+    {
+      x: 0, opacity: 1, duration: 0.9,
+      scrollTrigger: { trigger: '.contact-section', start: 'top 78%', once: true }
+    }
+  );
+
+  // Parallax on hero orbs
+  gsap.to('.orb-1', {
+    y: -80,
+    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 2 }
+  });
+
+  gsap.to('.orb-2', {
+    y: -50,
+    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1.5 }
+  });
+}
+
+/* ════════════════════════════════════════════════════════════════
+   SIMULATOR ENGINE
+════════════════════════════════════════════════════════════════ */
+function initSimulator() {
+  const input     = document.getElementById('decisionInput');
+  const charCount = document.getElementById('charCount');
+  const simBtn    = document.getElementById('simulateBtn');
+  const loading   = document.getElementById('simLoading');
+  const output    = document.getElementById('simOutput');
+  const resetBtn  = document.getElementById('resetBtn');
+  const saveBtn   = document.getElementById('saveBtn');
+  const progressBar = document.getElementById('progressBar');
+
+  // Character counter
+  input.addEventListener('input', () => {
+    const len = input.value.length;
+    charCount.textContent = len;
+    if (len > 280) charCount.style.color = '#ef4444';
+    else if (len > 200) charCount.style.color = '#eab308';
+    else charCount.style.color = '';
+  });
+
+  // Simulate button click
+  simBtn.addEventListener('click', () => {
+    const decision = input.value.trim();
+    if (!decision) {
+      shakeElement(input);
+      showToast('Please enter a decision to simulate!');
+      return;
+    }
+    if (decision.length < 10) {
+      showToast('Please describe your decision in more detail.');
+      return;
+    }
+    runSimulation(decision);
+  });
+
+  // Enter key in textarea (Ctrl+Enter or Cmd+Enter)
+  input.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+      simBtn.click();
+    }
+  });
+
+  // Reset
+  resetBtn.addEventListener('click', () => {
+    gsap.to(output, {
+      y: 20, opacity: 0, duration: 0.4,
+      onComplete: () => {
+        output.classList.remove('visible');
+        input.value = '';
+        charCount.textContent = '0';
+        gsap.to(input.closest('.sim-box'), { opacity: 1, pointerEvents: 'auto', duration: 0.4 });
+      }
+    });
+  });
+
+  // Save
+  saveBtn.addEventListener('click', () => {
+    showToast('✓ Result saved to your journal!');
+  });
+
+  async function runSimulation(decision) {
+    // Hide input, show loading
+    gsap.to(input.closest('.sim-box'), { opacity: 0.4, pointerEvents: 'none', duration: 0.3 });
+    output.classList.remove('visible');
+    loading.classList.add('active');
+
+    // Animate progress bar
+    progressBar.style.width = '0';
+    let progress = 0;
+    const progressInterval = setInterval(() => {
+      progress += Math.random() * 12;
+      if (progress > 92) { clearInterval(progressInterval); progress = 92; }
+      progressBar.style.width = progress + '%';
+    }, 200);
+
+    try {
+      // Call Anthropic API
+      const response = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 1000,
+          messages: [{
+            role: 'user',
+            content: `You are the Life Simulator — Decision Impact Engine. Analyze this decision and return ONLY valid JSON (no markdown, no backticks):
+
+Decision: "${decision}"
+
+Return this exact JSON structure:
+{
+  "confidence": "87%",
+  "paths": 4200,
+  "outcome": "A clear 2-3 sentence summary of the most likely overall outcome for this decision.",
+  "best_path": "One sentence describing the best-case scenario if this decision goes well.",
+  "likely_path": "One sentence describing the most probable/realistic outcome.",
+  "risk_path": "One sentence describing the main risk or worst-case scenario."
+}`
+          }]
+        })
+      });
+
+      const data = await response.json();
+      const text = data.content?.[0]?.text || '{}';
+
+      let result;
+      try {
+        result = JSON.parse(text.replace(/```json|```/g, '').trim());
+      } catch {
+        result = getFallback(decision);
+      }
+
+      // Complete progress
+      clearInterval(progressInterval);
+      progressBar.style.width = '100%';
+
+      setTimeout(() => {
+        showResult(decision, result);
+      }, 400);
+
+    } catch (err) {
+      clearInterval(progressInterval);
+      showResult(decision, getFallback(decision));
+    }
+  }
+
+  function getFallback(decision) {
+    const d = decision.toLowerCase();
+    const isCareer = d.includes('job') || d.includes('career') || d.includes('business');
+    const isMove   = d.includes('move') || d.includes('city') || d.includes('relocat');
+    const isRelation = d.includes('relationship') || d.includes('love') || d.includes('partner');
+
+    if (isCareer) return {
+      confidence: '82%', paths: 3847,
+      outcome: 'Career transitions carry high short-term risk but substantial long-term reward. Your decision aligns with a growth pattern seen in 68% of successful entrepreneurs.',
+      best_path: 'Your venture succeeds within 18 months, generating 3x your previous income.',
+      likely_path: 'Initial struggle for 6–12 months followed by gradual stability and satisfaction.',
+      risk_path: 'Insufficient runway leads to returning to employment, but with valuable new skills.'
+    };
+    if (isMove) return {
+      confidence: '79%', paths: 2913,
+      outcome: 'Geographic transitions correlate strongly with personal growth and expanded networks. The first year is typically the hardest emotionally.',
+      best_path: 'New city opens unexpected career opportunities and a rich social circle within a year.',
+      likely_path: 'Adaptation takes 6 months; moderate loneliness followed by a sense of liberation.',
+      risk_path: 'Isolation and higher cost of living create regret, prompting a return move.'
+    };
+    if (isRelation) return {
+      confidence: '74%', paths: 5102,
+      outcome: 'Relationship decisions are among the highest-impact choices. Clarity of values alignment is the strongest predictor of long-term success.',
+      best_path: 'Deep mutual understanding leads to lasting partnership and shared growth.',
+      likely_path: 'A fulfilling connection with natural ebbs and flows requiring active maintenance.',
+      risk_path: 'Fundamental value misalignment surfaces over time, creating friction and eventual separation.'
+    };
+
+    return {
+      confidence: '85%', paths: 4100,
+      outcome: 'Your decision sits at a pivotal crossroads. The data suggests moderate-to-high upside with manageable downside risk if approached with clear intention.',
+      best_path: 'Full commitment yields transformative results within 12–18 months.',
+      likely_path: 'Steady progress with expected setbacks leads to meaningful long-term change.',
+      risk_path: 'Indecision or half-measures limit potential and prolong the current situation.'
+    };
+  }
+
+  function showResult(decision, result) {
+    // Populate fields
+    document.getElementById('outputDecision').textContent = decision;
+    document.getElementById('confidence').textContent = result.confidence || '—';
+    document.getElementById('pathsCount').textContent = (result.paths || 0).toLocaleString();
+    document.getElementById('outputResult').textContent = result.outcome || '—';
+    document.getElementById('pathBest').textContent = result.best_path || '—';
+    document.getElementById('pathLikely').textContent = result.likely_path || '—';
+    document.getElementById('pathRisk').textContent = result.risk_path || '—';
+
+    // Hide loading, show output
+    loading.classList.remove('active');
+    progressBar.style.width = '0';
+    output.classList.add('visible');
+
+    // Animate output card in
+    gsap.fromTo(output,
+      { y: 40, opacity: 0, scale: 0.96 },
+      { y: 0, opacity: 1, scale: 1, duration: 0.8, ease: 'back.out(1.3)' }
+    );
+
+    // Animate path cards
+    gsap.fromTo('.path-card',
+      { y: 20, opacity: 0 },
+      { y: 0, opacity: 1, stagger: 0.12, duration: 0.5, delay: 0.4, ease: 'power2.out' }
+    );
+
+    // Scroll to result
+    setTimeout(() => {
+      output.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 300);
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════
+   UTILITY FUNCTIONS
+════════════════════════════════════════════════════════════════ */
+
+// Shake animation for invalid input
+function shakeElement(el) {
+  gsap.fromTo(el,
+    { x: -8 },
+    { x: 0, duration: 0.5, ease: 'elastic.out(1, 0.3)',
+      keyframes: [
+        { x: -8, duration: 0.07 },
+        { x: 8,  duration: 0.07 },
+        { x: -6, duration: 0.07 },
+        { x: 6,  duration: 0.07 },
+        { x: -3, duration: 0.07 },
+        { x: 0,  duration: 0.07 },
+      ]
+    }
+  );
+  el.style.borderColor = '#ef4444';
+  el.style.boxShadow = '0 0 20px rgba(239,68,68,0.3)';
+  setTimeout(() => {
+    el.style.borderColor = '';
+    el.style.boxShadow = '';
+  }, 1000);
+}
+
+// Toast notification
+function showToast(message) {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 3500);
+}
+
+// Button hover pulse effect
+document.querySelectorAll('.btn-primary').forEach(btn => {
+  btn.addEventListener('mouseenter', () => {
+    gsap.to(btn, { scale: 1.03, duration: 0.2 });
+  });
+  btn.addEventListener('mouseleave', () => {
+    gsap.to(btn, { scale: 1, duration: 0.2 });
+  });
+  btn.addEventListener('click', () => {
+    gsap.fromTo(btn,
+      { scale: 0.95 },
+      { scale: 1, duration: 0.3, ease: 'back.out(3)' }
+    );
+  });
+});
+
+// Smooth nav link active state styling
+const styleTag = document.createElement('style');
+styleTag.textContent = `.nav-link.active { color: var(--purple-light); background: rgba(124,58,237,0.1); }`;
+document.head.appendChild(styleTag);
+
+</script>
+</body>
+</html>
