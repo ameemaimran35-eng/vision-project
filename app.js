@@ -333,7 +333,7 @@ function initScrollAnimations() {
 ════════════════════════════════════════════════════════════════ */
 
 // ── Backend API URL — change this if your server runs elsewhere ──
-const API_BASE_URL = 'http://localhost:5000';
+const API_BASE_URL = 'https://vision-project-olive.vercel.app';
 
 function initSimulator() {
   const input       = document.getElementById('decisionInput');
